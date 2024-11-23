@@ -1,7 +1,7 @@
 import Header from '@/components/Header,'
 import { ModeToggle } from '@/components/ToggleTheme'
 import React from 'react'
-import BodyHome from '@/components/BodyHome'
+import BodyHome from '@/components/BodyHome'    
 
 const Home = () => {
   return (
