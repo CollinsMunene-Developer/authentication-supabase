@@ -1,13 +1,24 @@
+import Header from '@/components/Header,'
+import { ModeToggle } from '@/components/ToggleTheme'
 import React from 'react'
+import BodyHome from '@/components/BodyHome'
 
 const Home = () => {
   return (
-    <div className='align-middle justify-center w-full h-full min-w-[1240px translate-1/2]'>
-      <h1 className='font-bold align-middle '>
-        This is the home page
-      </h1>
-      
-    </div>
+
+    <section>
+        <div className="w-full h-screen max-h-screen min-h-screen flex flex-col bg-black " >
+           <div className="">
+           <Header />
+           </div>
+
+           <div className="">
+            <BodyHome />
+           </div>
+
+        </div>
+
+    </section>
   )
 }
 

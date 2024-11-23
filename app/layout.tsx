@@ -1,26 +1,19 @@
-import type { Metadata } from "next";
-import {Inter, IBM_Plex_Serif} from "next/font/google";
+"use client"
+import { Inter, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ui/theme-provider"; 
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  display: "swap",
-
-})
+});
 const ibmPlexSerif = IBM_Plex_Serif({
-  subsets: ["latin"], 
-  weight: ['400', '700'],
+  subsets: ["latin"],
+  weight: ["400", "700"],
   variable: "--font-ibm-plex-serif",
-  display: 'swap',
-})
-export const metadata: Metadata = {
-  title: "cloudmagic",
-  description: "Deploy your code to the cloud with ease",
-  icons: {
-    icon: "/Icons/logo.svg",
-  }
-};
+});
+
+
 
 export default function RootLayout({
   children,
@@ -28,12 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${ibmPlexSerif.variable} antialiased`}
-      >
+    <html lang="en" >
+      <body>
+      
         {children}
-      </body>
+      </body> 
     </html>
   );
 }

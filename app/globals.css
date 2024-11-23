@@ -4,6 +4,17 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background: url('/Images/background.jpg');
+}
+
+.background {
+  background: url('/Images/background.jpg');
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 @layer base {
