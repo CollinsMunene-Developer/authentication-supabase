@@ -1,15 +1,43 @@
-import AuthForm from '@/components/AuthForm'
-import React from 'react'
+'use client';
+
+import React from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, FormProvider } from "react-hook-form";
+import CustomFormSignIn from "@/components/CustomFormSignIn";
+import { Form } from "@/components/ui/form";
+
+const formSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 const SignIn = () => {
-    const userDetails = {
-        firstName: "Collins"
-    }
-  return (
-    <div className="">
-        <AuthForm type="signin"   />
-    </div>
-  )
-}
+  const methods = useForm<FormData>({
+    mode: "onChange",
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-export default SignIn
+  const onSubmit = (data: FormData) => {
+    console.log("Form values:", data);
+    // Handle form submission (e.g., API call)
+  };
+
+  return (
+    <div className="w-full flex justify-center items-center h-screen p-4">
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} className="w-full">
+          <CustomFormSignIn />
+        </form>
+      </FormProvider>
+    </div>
+  );
+};
+
+export default SignIn;

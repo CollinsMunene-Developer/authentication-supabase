@@ -26,7 +26,7 @@ import { Email, Googleimg, User, Lock, Github, Microsoft } from "@/public/Icons/
 
 const CustomForm = ({ onSubmit = (data: any) => console.log(data) }) => {
   return (
-    <Card className="w-auto max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-center">
           Profile Details

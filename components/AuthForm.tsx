@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
+import {useForm} from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -13,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import CustomForm from "./CustomForm";
 
 const formSchema = z.object({
@@ -23,7 +23,7 @@ const formSchema = z.object({
 
 interface AuthFormProps {
   type: string;
-  userDetails?: {
+  userDetails?: { 
     firstname?: string;
   };
 }
