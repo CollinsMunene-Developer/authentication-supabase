@@ -46,16 +46,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, userDetails }) => {
   return (
     <section className="">
       <div className="flex h-full  container flex-col items-center align-middle justify-center bg-black-700 border-none mt--16 w-full h-screen outline-none gap-2">
-        <h1 className="text-white font-bold  text-3xl ">
-          {type === "signin"
-            ? `Welcome Back, ${userDetails?.firstname || "User" }!`
-            : "Welcome to CloudMagic"}
-        </h1>
-        <p className="text-gray-500">
-          {type === "signin"
-            ? "Sign in to your account"
-            : "please sign up to continue"}
-        </p>
+
 
         <div className="   w-1/2  items-center justify-center rounded-md  ">
           <Form {...form}>

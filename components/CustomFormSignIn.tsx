@@ -11,9 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Email, Lock, Googleimg, Microsoft, Github } from "@/public/Icons/Icons";
+import Link from "next/link";
 import Image from "next/image";
-import { Email, Lock } from "@/public/Icons/Icons";
-
 const CustomFormSignIn = () => {
   const form = useFormContext();
   
@@ -35,7 +35,7 @@ const CustomFormSignIn = () => {
         </p>
       </CardHeader>
       <CardContent className="w-full  flex mt-40 flex-col px-12  justify-center ">
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-2">
           <FormItem>
             <FormLabel>Email</FormLabel>
             <FormControl>
@@ -84,7 +84,7 @@ const CustomFormSignIn = () => {
         </div>
 
         <div>
-            <p className="text-center text-gray-500 mt-4">
+            <p className="text-center text-gray-500 ">
                 Don't have an account?{" "}
                 <a href="/sign-up" className="text-purple-700">
                 Sign Up
@@ -98,6 +98,28 @@ const CustomFormSignIn = () => {
                 </a>
             </p>
         </div>
+        <span className="justify-center text-center -mt-1">Or</span>
+
+<div className="flex flex-col items-center justify-center gap-2 mt-4">
+  <Button className="bg-white text-black w-72 outline-gray-800 hover:bg-slate-400 ">
+    <Link href="#" className="flex gap-4">
+      <Image src={Googleimg} alt="google" width={20} height={20} />
+      Continue with Google
+    </Link>
+  </Button>
+  <Button className="bg-white text-black outline-gray-800 w-72  hover:bg-slate-400">
+    <Link href="#" className="flex gap-4">
+      <Image src={Github} alt="github" width={20} height={20} />
+      Continue with Github
+    </Link>
+  </Button>
+  <Button className="h-10 outline-black bg-white text-black w-72  hover:bg-slate-400">
+    <Link href="#" className="flex gap-4">
+      <Image src={Microsoft} alt="google" width={20} height={20} />
+      Continue with Microsoft
+    </Link>
+  </Button>
+</div>
         
 
         </div>

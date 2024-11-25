@@ -7,7 +7,7 @@ const Home = () => {
   return (
 
     <section>
-        <div className="w-full h-screen max-h-screen min-h-screen flex flex-col bg-black " >
+        <div className="w-full container h-screen max-h-screen min-h-screen flex flex-col bg-black " >
            <div className="">
            <Header />
            </div>
