@@ -1,0 +1,6 @@
+export {default as Googleimg} from './google.svg'
+export {default as Email} from './email.svg'
+export {default as User} from './user.svg'
+export {default as Lock} from './lock.svg'
+export { default as Github } from './github.svg'
+export { default as Microsoft } from './microsoft.svg'
