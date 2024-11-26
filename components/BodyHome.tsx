@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const BodyHome = () => {
   return (
-    <section className="w-full h-screen flex  items-center justify-center ">
+    <section className="w-full h-screen flex max-h-screen bg-black  items-center justify-center ">
       <nav className="w-full flex flex-col items-center">
         {/* Intro Text */}
         <div className="text-center mb-6 ">

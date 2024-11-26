@@ -25,7 +25,7 @@ const CustomFormSignIn = () => {
   const { errors } = formState;
 
   return (
-    <Card className=" h-screen w-full  max-w-2xl mx-auto">
+    <Card className=" h-screen w-full  max-w-xl mx-auto">
       <CardHeader className="bg-gray-100  rounded-lg w-full">
         <CardTitle className="text-3xl font-bold text-center ">
           Welcome Back

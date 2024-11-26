@@ -15,14 +15,14 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const SignIn = () => {
-  const methods = useForm<FormData>({
-    mode: "onChange",
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+    const methods = useForm<FormData>({
+      mode: "onChange",
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        email: "",
+        password: "",
+      },
+    });
 
   const onSubmit = (data: FormData) => {
     console.log("Form values:", data);
@@ -30,12 +30,13 @@ const SignIn = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center h-screen p-4">
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)} className="w-full">
-          <CustomFormSignIn />
-        </form>
-      </FormProvider>
+    <div className="w-full flex justify-center items-center h-screen bg-black p-4">
+<FormProvider {...methods}>
+  <form onSubmit={methods.handleSubmit(onSubmit)} className="w-full ">
+    <CustomFormSignIn />
+  </form>
+</FormProvider>
+
     </div>
   );
 };

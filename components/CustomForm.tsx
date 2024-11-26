@@ -1,5 +1,8 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { signUpUser } from "@/actions/userAuth";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -26,6 +29,10 @@ import { Check, X } from 'lucide-react';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { sign } from "crypto";
+// import { useState } from "react"; // This line is removed as it is already imported above
+
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -49,6 +56,9 @@ const formSchema = z.object({
 });
 
 const CustomForm = ({ onSubmit = (data: any) => console.log(data) }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -83,17 +93,61 @@ const CustomForm = ({ onSubmit = (data: any) => console.log(data) }) => {
     special: (password: string) => /[^A-Za-z0-9]/.test(password),
   };
 
-  const handleFormSubmit = (data: z.infer<typeof formSchema>) => {
-    onSubmit(data);
+  const handleFormSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const { firstName, lastName, username, phoneNumber, email, password, role, company, gender } = data;
+      
+      const result = await signUpUser({
+        firstName,
+        lastName,
+        username,
+        phoneNumber,
+        email,
+        password,
+        role,
+        company,
+        gender
+      });
+
+      if (result.error) {
+        // Handle specific error codes
+        switch (result.error.code) {
+          case 'EMAIL_EXISTS':
+            setErrorMessage('An account with this email already exists.');
+            break;
+          case 'USERNAME_EXISTS':
+            setErrorMessage('This username is already taken.');
+            break;
+          default:
+            setErrorMessage(result.error.message || 'An error occurred during signup');
+        }
+        setIsLoading(false);
+        return;
+      }
+
+      // Successful signup
+      console.log('User signed up successfully:', result.data);
+      
+      // Show success message or redirect
+      router.push("/sign-in");
+
+    } catch (error) {
+      console.error("Unexpected error signing up:", error);
+      setErrorMessage('An unexpected error occurred. Please try again.');
+      setIsLoading(false);
+    }
   };
 
+
   return (
-    <Card className="w-full h-screen max-w-2xl mx-auto">
+    <Card className="w-full h-screenmax-w-xl    mx-auto">
       <CardHeader>
-        <CardTitle className="text-xl font-bold text-center">
+        <CardTitle className="text-3xl mt-6 font-bold text-center">
           Sign Up
         </CardTitle>
-        <p className="flex justify-center font-semibold"> Welcome to Cloudmagic, Fill out the form below to create an account</p>
       </CardHeader>
       <CardContent className="w-full flex flex-col h-screen min-h-screen">
         <Form {...form}>
@@ -317,8 +371,8 @@ const CustomForm = ({ onSubmit = (data: any) => console.log(data) }) => {
             </div>
 
             <div className="mt-6 flex justify-center">
-              <Button className="w-72" type="submit">
-                Signup
+              <Button className="w-72" type="submit" disabled={!form.formState.isValid || isLoading} >
+              {isLoading ? "Signing Up..." : "Signup"}
               </Button>
             </div>
           </form>

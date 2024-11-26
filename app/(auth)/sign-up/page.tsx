@@ -3,8 +3,8 @@ import React from "react";
 
 const SignUp = () => {
   return (
-    <div className="">
-      <AuthForm type="signup" />
+    <div className="bg-black h-screen m overflow-y-scroll ">
+      <AuthForm type="signup"  />
     </div>
   );
 };
