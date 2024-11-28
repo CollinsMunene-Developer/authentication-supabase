@@ -27,12 +27,8 @@ import Image from "next/image";
 import { Email, Googleimg, User, Lock, Github, Microsoft } from "@/public/Icons/Icons";
 import { Check, X } from 'lucide-react';
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { sign } from "crypto";
-// import { useState } from "react"; // This line is removed as it is already imported above
-
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -143,7 +139,8 @@ const CustomForm = ({ onSubmit = (data: any) => console.log(data) }) => {
 
 
   return (
-    <Card className="w-full h-screenmax-w-xl    mx-auto">
+    <FormProvider {...form}>
+          <Card className="w-full h-screenmax-w-xl    mx-auto">
       <CardHeader>
         <CardTitle className="text-3xl mt-6 font-bold text-center">
           Sign Up
@@ -409,6 +406,8 @@ const CustomForm = ({ onSubmit = (data: any) => console.log(data) }) => {
         </div>
       </CardContent>
     </Card>
+    </FormProvider>
+
   );
 };
 
