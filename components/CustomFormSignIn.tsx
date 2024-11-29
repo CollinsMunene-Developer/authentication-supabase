@@ -1,6 +1,7 @@
 'use client';
 
 import React from "react";
+import { login, signup } from "@/app/(auth)/sign-in/actions";
 import { useFormContext, FieldValues } from "react-hook-form";
 import {
   FormItem,
@@ -78,9 +79,11 @@ const CustomFormSignIn = () => {
           
         <div className="justify-center flex">
             
-          <Button type="submit" className="w-72   ">
-            Sign In
-          </Button>
+          <button formAction={login} className="w-72   ">
+            Log in
+      
+          </button>
+          <button formAction={signup}>Sign up</button>
         </div>
 
         <div>

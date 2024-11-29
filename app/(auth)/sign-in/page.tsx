@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import CustomFormSignIn from "@/components/CustomFormSignIn";
 import { Form } from "@/components/ui/form";
+import {login, signup} from './actions'
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
