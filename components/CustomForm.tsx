@@ -1,8 +1,10 @@
 "use client"
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { signUpUser } from "@/actions/userAuth";
 import { useRouter } from "next/navigation";
+import { toast } from 'react-hot-toast';
+import { handleRegister } from "@/app/(auth)/sign-up/actions";
+
 import {
   Form,
   FormControl,
@@ -90,65 +92,55 @@ const CustomForm = ({ onSubmit = (data: any) => console.log(data) }) => {
   };
 
   const handleFormSubmit = async (data: z.infer<typeof formSchema>) => {
-    setIsLoading(true);
     setErrorMessage(null);
-
+    setIsLoading(true);
+  
     try {
-      const { firstName, lastName, username, phoneNumber, email, password, role, company, gender } = data;
-      
-      const result = await signUpUser({
-        firstName,
-        lastName,
-        username,
-        phoneNumber,
-        email,
-        password,
-        role,
-        company,
-        gender
-      });
-
-      if (result.error) {
-        // Handle specific error codes
-        switch (result.error.code) {
-          case 'EMAIL_EXISTS':
-            setErrorMessage('An account with this email already exists.');
-            break;
-          case 'USERNAME_EXISTS':
-            setErrorMessage('This username is already taken.');
-            break;
-          default:
-            setErrorMessage(result.error.message || 'An error occurred during signup');
-        }
-        setIsLoading(false);
-        return;
-      }
-
-      // Successful signup
-      console.log('User signed up successfully:', result.data);
-      
-      // Show success message or redirect
-      router.push("/sign-in");
-
+      // Convert the data into FormData to be sent to the server
+      const formData = new FormData();
+      formData.append('firstName', data.firstName);
+      formData.append('lastName', data.lastName);
+      formData.append('username', data.username);
+      formData.append('phoneNumber', data.phoneNumber);
+      formData.append('email', data.email);
+      formData.append('password', data.password);
+      formData.append('role', data.role);
+      formData.append('company', data.company);
+      formData.append('gender', data.gender);
+  
+      // Call the server action
+      await handleRegister(formData);
+  
+      // Redirect the user after successful registration
+      window.location.href = '/sign-in?signup=success';
     } catch (error) {
-      console.error("Unexpected error signing up:", error);
-      setErrorMessage('An unexpected error occurred. Please try again.');
+      // Handle unexpected errors
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'An unexpected error occurred during signup';
+  
+      setErrorMessage(errorMessage);
+    } finally {
+      // Ensure loading state is reset
       setIsLoading(false);
     }
   };
-
-
+  
+  
+  
   return (
     <FormProvider {...form}>
-          <Card className="w-full h-screenmax-w-xl    mx-auto">
+          <Card className="w-full h-screen max-w-2xl    mx-auto">
       <CardHeader>
         <CardTitle className="text-3xl mt-6 font-bold text-center">
           Sign Up
         </CardTitle>
-      </CardHeader>
+        <p className="text-center" > Sign up to access our platform</p>
+      </CardHeader> 
       <CardContent className="w-full flex flex-col h-screen min-h-screen">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit( handleFormSubmit )} className="space-y-6">
             <div className="grid grid-cols-3 gap-4">
               <FormField
                 control={form.control}

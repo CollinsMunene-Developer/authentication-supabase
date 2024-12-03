@@ -6,50 +6,9 @@ import Image from 'next/image'
 import { LogIn, LogOut, UserPlus, User } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { User as SupabaseUser } from '@supabase/supabase-js'
-import { createSupabaseClient } from '@/utils/HeaderSupabase'
 
 const Header = () => {
-  // State to track user authentication
   
-  const [user, setUser] = useState<SupabaseUser | null>(null)
-  const supabase = createSupabaseClient()
-  const router = useRouter()
-
-  // Effect to check user authentication status on component mount
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      setUser(user)
-    }
-
-    checkUser()
-
-    // Listen for authentication changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user || null)
-      }
-    )
-
-    // Cleanup subscription
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [])
-
-  // Handle sign out functionality
-  const handleSignOut = async () => {
-    try {
-      const { error } = await supabase.auth.signOut()
-      if (error) {
-        console.error('Error signing out:', error)
-      }
-      // Redirect to home or login page after sign out
-      router.push('/')
-    } catch (error) {
-      console.error('Unexpected error during sign out:', error)
-    }
-  }
 
   return (
     <header className="flex items-center justify-between px-6 py-4 shadow-sm bg-white">
